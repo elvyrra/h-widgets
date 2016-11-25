@@ -1,0 +1,7 @@
+; Markdown input
+markdown-tab-content = "Write"
+markdown-tab-preview = "Preview"
+
+
+; Comment form widget
+valid-comment-btn = "Comment"
