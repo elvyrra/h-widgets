@@ -3,5 +3,6 @@
     "description": "This plugin provides a list of widgets that can be inserted in your modules.",
     "version": "1.0.0",
     "author": "Elvyrra SAS",
-    "dependencies": []
+    "dependencies": [],
+    "logo" : "h-widgets-logo.png"
 }
