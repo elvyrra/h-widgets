@@ -6,11 +6,24 @@ namespace Hawk\Plugins\HWidgets;
  * This widget displays a form to add a comment, that supports makdown
  */
 class CommentForm extends Widget {
+    public function __construct($param = array()) {
+        parent::__construct($param);
+
+        $this->attributes = array();
+
+        foreach($param as $key => $value)  {
+            if(!in_array($key, array('id', 'action', 'onsuccess'))) {
+                $this->attributes[$key] = $value;
+            }
+        }
+    }
+
     public function display() {
         $param = array(
             'id' => empty($this->id) ? uniqid() : $this->id,
             'class' => 'h-widgets-comment-form',
             'action' => empty($this->action) ? '#' : $this->action,
+            'attributes' => $this->attributes,
             'fieldsets' => array(
                 'form' => array(
                     new MarkdownInput(array(

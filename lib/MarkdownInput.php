@@ -18,6 +18,12 @@ class MarkdownInput extends TextareaInput{
     const TYPE = "markdown";
 
     /**
+     * The rows number
+     * @var integer
+     */
+    public $rows = 5;
+
+    /**
      * Constructor
      *
      * @param array $param The input parameters. This arguments is an associative array where each key is the name of a property of this class
