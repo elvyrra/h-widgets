@@ -4,7 +4,9 @@ namespace Hawk\Plugins\HWidgets;
 
 class MetaData extends Widget {
     public function display() {
-        if(isset($this->avatar)) {
+        $bgColor = '';
+
+        if(!empty($this->avatar)) {
             $avatar = $this->avatar;
         }
         elseif(isset($this->name)) {
@@ -28,7 +30,13 @@ class MetaData extends Widget {
         $g = hexdec(substr($bgColor, 2, 2));
         $b = hexdec(substr($bgColor, 4, 2));
 
-        $color = dechex(255 - $r) . dechex(255 - $g) . dechex(255 - $b);
+        $bgColor = "rgba($r, $g, $b, 0.8)";
+
+        $textR = 255 - $r;
+        $textG = 255 - $g;
+        $textB = 255 - $b;
+
+        $color = "rgba($textR, $textG, $textB, 0.8)";
 
         return View::make($this->getPlugin()->getView('meta-data.tpl'), array(
             'avatar' => $avatar,

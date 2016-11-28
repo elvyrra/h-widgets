@@ -3,7 +3,7 @@
         {if($avatar)}
             <img src="{{ $avatar}}" class="user-avatar {{ $size }}" />
         {else}
-            <span class="user-avatar {{ $size }}" style="background-color : #{{ $bgColor }}; color : #{{ $color }}">{{ $initial }}</i>
+            <span class="user-avatar {{ $size }}" style="background-color : {{ $bgColor }}; color : {{ $color }}">{{ $initial }}</i>
         {/if}
     </div>
     <div class="media-body">
