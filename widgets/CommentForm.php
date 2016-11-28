@@ -31,7 +31,8 @@ class CommentForm extends Widget {
                         'attributes' => array(
                             'e-markdown' => 'true'
                         ),
-                        'rows' => 5
+                        'rows' => 5,
+                        'required' => true
                     )),
                     new HiddenInput(array(
                         'name' => 'userId',
