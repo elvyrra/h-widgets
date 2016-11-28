@@ -44,9 +44,12 @@ This widget displays, for a given data, the avatar of the user that created this
 `{ widget plugin="h-widgets" class="MetaData" [parameters] }`
 
 The available parameters are :
-* `userId` (mandatory) : The user to display the avatar's
+* `userId` : The user to display the avatar's
+* `avatar` : The URL of the avatar to display
+* `name` : The name to get to display the initial (if avatar is not set)
 * `meta` : The first line of data
 * `description` : The content of the data to display
 * `size` : The size of the avatar. It can take the value 'small', 'x-small', or not set to have the default size
 
 NOTE : The first space between '{' and 'widget' must not be set in your code, and is written in this page to not be parsed by Hawk view engine
+NOTE : At least one of the parameters `userId`, `avatar` or `name` must be set
