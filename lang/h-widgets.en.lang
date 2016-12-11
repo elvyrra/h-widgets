@@ -1,7 +1,7 @@
 ; Markdown input
+markdown-placeholder = "Write here ... Markdown is supported"
 markdown-tab-content = "Write"
 markdown-tab-preview = "Preview"
-
 
 ; Comment form widget
 valid-comment-btn = "Comment"

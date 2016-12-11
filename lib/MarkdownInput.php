@@ -29,7 +29,10 @@ class MarkdownInput extends TextareaInput{
      * @param array $param The input parameters. This arguments is an associative array where each key is the name of a property of this class
      */
     public function __construct($param){
+        $this->placeholder = Lang::get('h-widgets.markdown-placeholder');
+
         parent::__construct($param);
+
 
         $plugin = Plugin::get('h-widgets');
 
