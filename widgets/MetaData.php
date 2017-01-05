@@ -8,6 +8,7 @@ class MetaData extends Widget {
 
         if(!empty($this->avatar)) {
             $avatar = $this->avatar;
+            $initial = '';
         }
         elseif(isset($this->name)) {
             $avatar = '';
