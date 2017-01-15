@@ -53,3 +53,7 @@ The available parameters are :
 
 NOTE : The first space between '{' and 'widget' must not be set in your code, and is written in this page to not be parsed by Hawk view engine
 NOTE : At least one of the parameters `userId`, `avatar` or `name` must be set
+
+# Changeset
+## v1.2.2
+* Manage the preview with jquery and not EMV, to be inserted in a form managed with EMV

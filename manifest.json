@@ -1,7 +1,7 @@
 {
     "title": "Hawk widgets",
     "description": "This plugin provides a list of widgets that can be inserted in your modules.",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "author": "Elvyrra SAS",
     "dependencies": [],
     "logo" : "h-widgets-logo.png"

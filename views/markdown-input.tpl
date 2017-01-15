@@ -8,12 +8,11 @@
         </li>
 
         <li class="pull-right markdown-shortcuts">
-            {icon icon="bold" size="lg" class="icon-fw" e-click="bold"}
-            {icon icon="italic" size="lg" class="icon-fw" e-click="italic"}
-            {icon icon="underline" size="lg" class="icon-fw" e-click="underline"}
-            {icon icon="list-ul" size="lg" class="icon-fw" e-click="listUl"}
-            {icon icon="list-ol" size="lg" class="icon-fw" e-click="listOl"}
-            {icon icon="code" size="lg" class="icon-fw" e-click="code"}
+            {icon icon="bold" size="lg" class="icon-fw" onclick="this.$model.bold()"}
+            {icon icon="italic" size="lg" class="icon-fw" onclick="this.$model.italic()"}
+            {icon icon="list-ul" size="lg" class="icon-fw" onclick="this.$model.listUl()"}
+            {icon icon="list-ol" size="lg" class="icon-fw" onclick="this.$model.listOl()"}
+            {icon icon="code" size="lg" class="icon-fw" onclick="this.$model.code()"}
         </li>
     </ul>
     <div class="tab-content">
@@ -33,9 +32,9 @@
                         {foreach($input->attributes as $key => $value)}
                             {if($value !== null)} {{ $key }}="{{{ $value }}}" {/if}
                         {/foreach}
-                        e-value="content">{{$input->value}}</textarea>
+                        >{{$input->value}}</textarea>
         </div>
-        <div role="tabpanel" class="tab-pane tab-pane-preview" id="{{ $input->id }}-preview" e-html="parsed">
+        <div role="tabpanel" class="tab-pane tab-pane-preview" id="{{ $input->id }}-preview">
         </div>
     </div>
 </div>
@@ -53,30 +52,32 @@
         }
     });
 
-    require(['app', 'emv', 'md'], function(app, EMV, md) {
+    require(['app', 'jquery', 'md'], function(app, $, md) {
         const converter = new md.Converter();
+        const textarea = document.getElementById('{{ $input->id }}');
+        const preview = document.getElementById('{{ $input->id }}-preview');
+        const wrapper = document.getElementById('{{ $input->id }}-wrapper');
 
         /**
          * This class manages the dynamic aspect of the markdown input
          */
-        class Markdown extends EMV {
+        class Markdown {
             /**
              * Constructor
              */
-            constructor() {
-                const textarea = document.getElementById('{{ $input->id }}');
-
-                super({
-                    data : {
-                        textarea : textarea,
-                        content : textarea.value
-                    },
-                    computed : {
-                        parsed : function() {
-                            return this.content ? converter.makeHtml(this.content) : '<i>Nothing to preview</i>';
-                        }
-                    }
+            init() {
+                $(wrapper).find('*').each((index, item) => {
+                    item.$model = this;
                 });
+
+                $(textarea).on('change', function() {
+                    const content = $(this).val();
+                    const parsed = content ? converter.makeHtml(content) : '<i>Nothing to preview</i>';
+
+                    $(preview).html(parsed);
+                });
+
+                $(textarea).trigger('change');
             }
 
             /**
@@ -86,7 +87,11 @@
              * @param {bool} before   Set true to insert the string before the position, false to insert it after
              */
             addStrTo(position, str) {
-                this.content = this.content.slice(0, position) + str + this.content.slice(position);
+                let content = $(textarea).val();
+
+                content = content.slice(0, position) + str + content.slice(position);
+
+                $(textarea).val(content).trigger('change');
             }
 
             /**
@@ -95,8 +100,8 @@
              */
             getSelection() {
                 return {
-                    start : this.textarea.selectionStart,
-                    end : this.textarea.selectionEnd
+                    start : textarea.selectionStart,
+                    end : textarea.selectionEnd
                 };
             }
 
@@ -119,7 +124,7 @@
              */
             addAtLineStart(str) {
                 const selection = this.getSelection;
-                let start = this.content.lastIndexOf('\n', selection.start) + 1;
+                let start = $(textarea).val().lastIndexOf('\n', selection.start) + 1;
 
                 this.addStrTo(start, str);
             }
@@ -139,12 +144,6 @@
                 this.wrapSelection('*', '*');
             }
 
-            /**
-             * Set the selection underline
-             */
-            underline() {
-                this.wrapSelection('__', '__');
-            }
 
             /**
              * Set a list
@@ -170,6 +169,6 @@
 
         const model = new Markdown();
 
-        model.$apply(document.getElementById('{{ $input->id }}-wrapper'));
+        model.init();
     });
 </script>

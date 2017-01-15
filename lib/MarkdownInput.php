@@ -39,7 +39,5 @@ class MarkdownInput extends TextareaInput{
         $this->tpl = $plugin->getView('markdown-input.tpl');
 
         Controller::current()->addCss($plugin->getCssUrl('markdown-input.less'));
-
-        $this->attributes['e-markdown'] = '1';
     }
 }
