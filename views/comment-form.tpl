@@ -5,6 +5,8 @@
 
     {{ $form->fieldsets['form'] }}
     {{ $form->fieldsets['submits'] }}
+
+    <div class="clearfix"></div>
 {/assign}
 
 {form id="{$form->id}" content="{$formContent}"}

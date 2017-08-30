@@ -6,6 +6,8 @@ namespace Hawk\Plugins\HWidgets;
  * This widget displays a form to add a comment, that supports makdown
  */
 class CommentForm extends Widget {
+    public $cancelButton;
+
     public function __construct($param = array()) {
         parent::__construct($param);
 
@@ -51,7 +53,9 @@ class CommentForm extends Widget {
                         'icon' => 'comment',
                         'value' => Lang::get($this->_plugin . '.valid-comment-btn'),
                         'nl' => true
-                    ))
+                    )),
+
+                    $this->cancelButton ? $this->cancelButton : null
                 )
             ),
             'onsuccess' => empty($this->onsuccess) ? '' : $this->onsuccess
